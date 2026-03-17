@@ -1,0 +1,100 @@
+/**
+ * mobile-overrides.css
+ * Ajustes de UI para cuando la app corre en Capacitor (iOS / Android)
+ * Incluir en <head> del index.html
+ */
+
+/* ── Safe Area (notch, home indicator) ─────────────────────── */
+:root {
+  --sat: env(safe-area-inset-top,    0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left,   0px);
+  --sar: env(safe-area-inset-right,  0px);
+}
+
+/* Aplicar solo cuando Capacitor detecta plataforma nativa */
+body.is-native {
+  /* Evitar scroll rebote de iOS */
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Nav top — bajar para que no tape la status bar */
+body.is-native .navbar {
+  padding-top: calc(var(--sat) + .65rem);
+  height: calc(60px + var(--sat));
+}
+
+/* Sidebar — respetar safe area lateral (iPad landscape, etc.) */
+body.is-native .sidebar {
+  padding-left: calc(var(--sal) + 1.25rem);
+  padding-bottom: calc(var(--sab) + 1rem);
+}
+
+/* Contenido principal — no quedar tapado por el home indicator */
+body.is-native .main-content {
+  padding-bottom: calc(var(--sab) + 1rem);
+}
+
+/* En móvil, el libro ocupa el ancho completo */
+@media (max-width: 768px) {
+  body.is-native .nb-desk {
+    padding: 1rem .5rem 3rem;
+  }
+  body.is-native .nb-open-book {
+    flex-direction: column;
+    max-width: 100%;
+  }
+  body.is-native .nb-page-left,
+  body.is-native .nb-page-right {
+    border-radius: 0;
+    min-height: 420px;
+  }
+  body.is-native .nb-page-left {
+    border-bottom: 2px solid rgba(0,0,0,.08);
+  }
+
+  /* Botones de navegación — debajo del libro en móvil */
+  body.is-native .nb-page-nav-btn.prev,
+  body.is-native .nb-page-nav-btn.next {
+    position: fixed;
+    top: auto;
+    bottom: calc(var(--sab) + 1rem);
+    transform: none;
+  }
+  body.is-native .nb-page-nav-btn.prev { left: 1.5rem; }
+  body.is-native .nb-page-nav-btn.next { right: 1.5rem; }
+
+  /* Shelf grid — 2 columnas en móvil */
+  body.is-native .shelf-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 0 .5rem;
+  }
+
+  /* Barra superior de la libreta — compacta */
+  body.is-native .nb-scene-bar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: .5rem 1rem;
+    gap: .5rem;
+  }
+  body.is-native .nb-scene-tabs { order: 10; width: 100%; justify-content: center; }
+  body.is-native .nb-scene-actions { margin-left: 0; }
+
+  /* Tap targets mínimo 44px (HIG Apple) */
+  body.is-native button,
+  body.is-native .nb-card,
+  body.is-native .nb-page-nav-btn {
+    min-height: 44px;
+  }
+}
+
+/* ── Swipe gesture hint ─────────────────────────────────────── */
+body.is-native .nb-book-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: -20px; left: 50%; transform: translateX(-50%);
+  width: 40px; height: 4px; border-radius: 2px;
+  background: rgba(0,0,0,.15);
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Bienestar Universitario",
+  "short_name": "Bienestar",
+  "description": "Centro de Psicología — Apoyo al Estudiante",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f5f1e8",
+  "theme_color": "#4d7366",
+  "icons": [
+    { "src": "icons/icon-72.png",   "sizes": "72x72",   "type": "image/png" },
+    { "src": "icons/icon-96.png",   "sizes": "96x96",   "type": "image/png" },
+    { "src": "icons/icon-128.png",  "sizes": "128x128", "type": "image/png" },
+    { "src": "icons/icon-192.png",  "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-512.png",  "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
